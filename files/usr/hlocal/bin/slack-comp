@@ -1,0 +1,16 @@
+#!/bin/sh
+
+. /usr/local/etc/slack.conf
+
+PREFIX="`basename $0`"
+ROLE="$1"
+REF_DIR=${CACHE}/roles/$1/files/${PWD}
+LS="`mktemp -t $PREFIX`"
+REF_LS="`mktemp -t $PREFIX`"
+
+ls -a > $LS
+ls -a $REF_DIR > $REF_LS
+
+echo "Comparing listing of $PWD against role \"$ROLE\":"
+
+diff $LS $REF_LS
